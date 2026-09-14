@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-01-create-livro
+      author: aluno-spring-2026
+      comment: Cria a tabela principal de livros.
+      changes:
+        - createTable:
+            tableName: livro
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_livro
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: titulo
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exemplares_disponiveis
+                  type: NUMERIC(18,3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valor_aquisicao
+                  type: NUMERIC(18,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data_aquisicao
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: categoria_livro_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: livro
+
+  - changeSet:
+      id: 002-02-unique-isbn
+      author: aluno-spring-2026
+      comment: Garante a unicidade global do ISBN.
+      changes:
+        - addUniqueConstraint:
+            tableName: livro
+            columnNames: isbn
+            constraintName: uk_livro_isbn
+      rollback:
+        - dropUniqueConstraint:
+            tableName: livro
+            constraintName: uk_livro_isbn
+
+  - changeSet:
+      id: 002-03-foreign-key-categoria-livro
+      author: aluno-spring-2026
+      comment: Liga cada livro à sua categoria.
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: livro
+            baseColumnNames: categoria_livro_id
+            referencedTableName: categoria_livro
+            referencedColumnNames: id
+            constraintName: fk_livro_categoria_livro
+            onDelete: RESTRICT
+      rollback:
+        - dropForeignKeyConstraint:
+            baseTableName: livro
+            constraintName: fk_livro_categoria_livro
+
+  - changeSet:
+      id: 002-04-check-exemplares-disponiveis
+      author: aluno-spring-2026
+      comment: Impede quantidade de exemplares negativa inclusive fora da aplicação Java.
+      changes:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              ADD CONSTRAINT ck_livro_exemplares_disponiveis
+              CHECK (exemplares_disponiveis >= 0)
+      rollback:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              DROP CONSTRAINT ck_livro_exemplares_disponiveis
+
+  - changeSet:
+      id: 002-05-check-valor-aquisicao
+      author: aluno-spring-2026
+      comment: Impede valor de aquisição negativo inclusive fora da aplicação Java.
+      changes:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              ADD CONSTRAINT ck_livro_valor_aquisicao
+              CHECK (valor_aquisicao >= 0)
+      rollback:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              DROP CONSTRAINT ck_livro_valor_aquisicao
+
+  - changeSet:
+      id: 002-06-check-status-livro
+      author: aluno-spring-2026
+      comment: Restringe o status aos valores definidos no enum Java.
+      changes:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              ADD CONSTRAINT ck_livro_status
+              CHECK (status IN ('ATIVO', 'INATIVO'))
+      rollback:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              DROP CONSTRAINT ck_livro_status

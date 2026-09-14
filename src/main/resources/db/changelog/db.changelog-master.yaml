@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/001-create-categoria-livro.yaml
+  - include:
+      file: db/changelog/changes/002-create-livro.yaml
+  - include:
+      file: db/changelog/changes/003-editora-e-exemplares-minimos.yaml

@@ -1,0 +1,160 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-01-create-editora
+      author: aluno-spring-2026
+      comment: Cria a entidade editora identificada por CNPJ.
+      changes:
+        - createTable:
+            tableName: editora
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_editora
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cnpj
+                  type: VARCHAR(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: editora
+
+  - changeSet:
+      id: 003-02-unique-cnpj-editora
+      author: aluno-spring-2026
+      changes:
+        - addUniqueConstraint:
+            tableName: editora
+            columnNames: cnpj
+            constraintName: uk_editora_cnpj
+      rollback:
+        - dropUniqueConstraint:
+            tableName: editora
+            constraintName: uk_editora_cnpj
+
+  - changeSet:
+      id: 003-03-check-status-editora
+      author: aluno-spring-2026
+      changes:
+        - sql:
+            sql: >
+              ALTER TABLE editora
+              ADD CONSTRAINT ck_editora_status
+              CHECK (status IN ('ATIVO', 'INATIVO'))
+      rollback:
+        - sql:
+            sql: >
+              ALTER TABLE editora
+              DROP CONSTRAINT ck_editora_status
+
+  - changeSet:
+      id: 003-04-add-exemplares-minimos-livro
+      author: aluno-spring-2026
+      comment: Adiciona primeiro como nullable para preservar as linhas existentes.
+      changes:
+        - addColumn:
+            tableName: livro
+            columns:
+              - column:
+                  name: exemplares_minimos
+                  type: NUMERIC(18,3)
+      rollback:
+        - dropColumn:
+            tableName: livro
+            columnName: exemplares_minimos
+
+  - changeSet:
+      id: 003-05-fill-exemplares-minimos-livro
+      author: aluno-spring-2026
+      comment: Preenche as linhas antigas antes de tornar a coluna obrigatória.
+      changes:
+        - update:
+            tableName: livro
+            columns:
+              - column:
+                  name: exemplares_minimos
+                  valueNumeric: 0
+            where: exemplares_minimos IS NULL
+      rollback:
+        - update:
+            tableName: livro
+            columns:
+              - column:
+                  name: exemplares_minimos
+                  value: null
+
+  - changeSet:
+      id: 003-06-not-null-exemplares-minimos-livro
+      author: aluno-spring-2026
+      changes:
+        - addNotNullConstraint:
+            tableName: livro
+            columnName: exemplares_minimos
+            columnDataType: NUMERIC(18,3)
+      rollback:
+        - dropNotNullConstraint:
+            tableName: livro
+            columnName: exemplares_minimos
+            columnDataType: NUMERIC(18,3)
+
+  - changeSet:
+      id: 003-07-check-exemplares-minimos-livro
+      author: aluno-spring-2026
+      changes:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              ADD CONSTRAINT ck_livro_exemplares_minimos
+              CHECK (exemplares_minimos >= 0)
+      rollback:
+        - sql:
+            sql: >
+              ALTER TABLE livro
+              DROP CONSTRAINT ck_livro_exemplares_minimos
+
+  - changeSet:
+      id: 003-08-add-editora-livro
+      author: aluno-spring-2026
+      comment: Editora é opcional para manter compatibilidade com livros existentes.
+      changes:
+        - addColumn:
+            tableName: livro
+            columns:
+              - column:
+                  name: editora_id
+                  type: BIGINT
+      rollback:
+        - dropColumn:
+            tableName: livro
+            columnName: editora_id
+
+  - changeSet:
+      id: 003-09-foreign-key-livro-editora
+      author: aluno-spring-2026
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: livro
+            baseColumnNames: editora_id
+            referencedTableName: editora
+            referencedColumnNames: id
+            constraintName: fk_livro_editora
+            onDelete: RESTRICT
+      rollback:
+        - dropForeignKeyConstraint:
+            baseTableName: livro
+            constraintName: fk_livro_editora
