@@ -27,7 +27,7 @@ cp .env.example .env
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-Com a aplicação iniciada, acesse <http://localhost:8080/api/health>. A resposta esperada é `OK`.
+Com a aplicação iniciada, acesse <http://localhost:8081/api/health>. A resposta esperada é `OK`.
 
 ## Modelo de domínio atual
 
