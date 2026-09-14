@@ -1,8 +1,6 @@
-# Biblioteca 2026
+# Sala De Leitura 2026
 
-API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação, com base no roteiro de aulas [`suporteos2026`](https://github.com/jeffersonarpasserini/suporteos2026) do professor Jefferson Passerini.
-
-Este projeto usa um tema próprio — controle de acervo de uma biblioteca — mantendo a mesma estrutura conceitual do projeto de referência.
+API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação
 
 ## Domínio inicial
 
@@ -14,15 +12,11 @@ Este projeto usa um tema próprio — controle de acervo de uma biblioteca — m
 - Java 21
 - Git
 - IntelliJ IDEA (ou outra IDE compatível com Maven)
-- Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência
+- Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência também o postmain
 
 ## Organização do curso
 
-O sistema será construído incrementalmente, acompanhando as aulas do projeto de referência. Cada aula termina em um estado executável, registrado por um commit e, após validação, por uma tag Git no formato `aula-NN-*`.
-
-## Projeto de referência
-
-O tema oficial do curso ([`suporteos2026`](https://github.com/jeffersonarpasserini/suporteos2026)) demonstra um controle simplificado de produtos organizados por grupos. Este repositório mantém o mesmo domínio conceitual (entidade de classificação + entidade principal), aplicado a um acervo de biblioteca — ver [`docs/tema-do-projeto.md`](docs/tema-do-projeto.md).
+O sistema será construído incrementalmente, acompanhando as aulas do projeto de referência.
 
 ## Executando o projeto
 
@@ -50,9 +44,9 @@ A editora de um livro é opcional. As classes estão no pacote `com.aluno.biblio
 
 Após iniciar a aplicação, estão disponíveis os cadastros, consultas por ID e listagens de:
 
-- `http://localhost:8080/api/categorias-livros`;
-- `http://localhost:8080/api/editoras`;
-- `http://localhost:8080/api/livros`.
+- `http://localhost:8081/api/categorias-livros`;
+- `http://localhost:8081/api/editoras`;
+- `http://localhost:8081/api/livros`.
 
 Os contratos usam DTOs, validação de entrada e respostas de erro padronizadas.
 
