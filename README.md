@@ -1,6 +1,10 @@
 # Sala De Leitura 2026
 
+<<<<<<< HEAD
 API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação.
+=======
+API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação
+>>>>>>> 643bbd2f523042654f8db278fd3e3072d72260c2
 
 ## Domínio inicial
 
@@ -12,8 +16,12 @@ API didática desenvolvida na disciplina de Programação da graduação em Sist
 - Java 21
 - Git
 - IntelliJ IDEA (ou outra IDE compatível com Maven)
+<<<<<<< HEAD
 - Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência
 - Postman, para testar os endpoints da API
+=======
+- Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência também o postmain
+>>>>>>> 643bbd2f523042654f8db278fd3e3072d72260c2
 
 ## Organização do curso
 
@@ -40,7 +48,7 @@ No macOS/Linux:
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-Com a aplicação iniciada, acesse <http://localhost:8080/api/health>. A resposta esperada é `OK`.
+Com a aplicação iniciada, acesse <http://localhost:8081/api/health>. A resposta esperada é `OK`.
 
 > Se a porta 8080 já estiver em uso na sua máquina, defina outra porta antes de rodar:
 > ```powershell
@@ -62,9 +70,9 @@ A editora de um livro é opcional. As classes estão no pacote `com.aluno.biblio
 
 Após iniciar a aplicação, estão disponíveis os cadastros, consultas por ID e listagens de:
 
-- `http://localhost:8080/api/categorias-livros`;
-- `http://localhost:8080/api/editoras`;
-- `http://localhost:8080/api/livros`.
+- `http://localhost:8081/api/categorias-livros`;
+- `http://localhost:8081/api/editoras`;
+- `http://localhost:8081/api/livros`.
 
 (troque `8080` pela porta configurada via `SERVER_PORT`, se for diferente)
 
