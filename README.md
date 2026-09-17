@@ -1,10 +1,9 @@
 # Sala De Leitura 2026
 
-<<<<<<< HEAD
+Começo
 API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação.
-=======
+
 API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação
->>>>>>> 643bbd2f523042654f8db278fd3e3072d72260c2
 
 ## Domínio inicial
 
@@ -16,12 +15,10 @@ API didática desenvolvida na disciplina de Programação da graduação em Sist
 - Java 21
 - Git
 - IntelliJ IDEA (ou outra IDE compatível com Maven)
-<<<<<<< HEAD
 - Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência
 - Postman, para testar os endpoints da API
 =======
 - Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência também o postmain
->>>>>>> 643bbd2f523042654f8db278fd3e3072d72260c2
 
 ## Organização do curso
 
