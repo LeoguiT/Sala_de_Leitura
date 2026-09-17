@@ -1,8 +1,6 @@
-# Biblioteca 2026
+# Sala De Leitura 2026
 
-API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação, com base no roteiro de aulas [`suporteos2026`](https://github.com/jeffersonarpasserini/suporteos2026) do professor Jefferson Passerini.
-
-Este projeto usa um tema próprio — controle de acervo de uma biblioteca — mantendo a mesma estrutura conceitual do projeto de referência.
+API didática desenvolvida na disciplina de Programação da graduação em Sistemas de Informação.
 
 ## Domínio inicial
 
@@ -15,14 +13,11 @@ Este projeto usa um tema próprio — controle de acervo de uma biblioteca — m
 - Git
 - IntelliJ IDEA (ou outra IDE compatível com Maven)
 - Docker Desktop ou PostgreSQL local, usado a partir da aula de persistência
+- Postman, para testar os endpoints da API
 
 ## Organização do curso
 
-O sistema será construído incrementalmente, acompanhando as aulas do projeto de referência. Cada aula termina em um estado executável, registrado por um commit e, após validação, por uma tag Git no formato `aula-NN-*`.
-
-## Projeto de referência
-
-O tema oficial do curso ([`suporteos2026`](https://github.com/jeffersonarpasserini/suporteos2026)) demonstra um controle simplificado de produtos organizados por grupos. Este repositório mantém o mesmo domínio conceitual (entidade de classificação + entidade principal), aplicado a um acervo de biblioteca — ver [`docs/tema-do-projeto.md`](docs/tema-do-projeto.md).
+O sistema será construído incrementalmente, acompanhando as aulas do projeto de referência.
 
 ## Executando o projeto
 
@@ -30,10 +25,27 @@ Na primeira execução, copie `.env.example` para `.env`, preencha `DB_DEV_PASSW
 
 ```bash
 cp .env.example .env
+```
+
+No Windows (PowerShell):
+
+```powershell
+$env:SPRING_PROFILES_ACTIVE="dev"
+.\mvnw spring-boot:run
+```
+
+No macOS/Linux:
+
+```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 Com a aplicação iniciada, acesse <http://localhost:8080/api/health>. A resposta esperada é `OK`.
+
+> Se a porta 8080 já estiver em uso na sua máquina, defina outra porta antes de rodar:
+> ```powershell
+> $env:SERVER_PORT="8081"
+> ```
 
 ## Modelo de domínio atual
 
@@ -53,6 +65,8 @@ Após iniciar a aplicação, estão disponíveis os cadastros, consultas por ID 
 - `http://localhost:8080/api/categorias-livros`;
 - `http://localhost:8080/api/editoras`;
 - `http://localhost:8080/api/livros`.
+
+(troque `8080` pela porta configurada via `SERVER_PORT`, se for diferente)
 
 Os contratos usam DTOs, validação de entrada e respostas de erro padronizadas.
 
